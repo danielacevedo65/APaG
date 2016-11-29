@@ -1,0 +1,24 @@
+import enchant
+from fileOpen import fileOpen
+
+def checkSpelling(text: str):
+    text = text.split()
+    checkifEnglish = enchant.Dict("en_US")
+    score = 0
+    outOf = 0
+    for word in text:
+        outOf += 1
+        if checkifEnglish.check(word):
+            score += 1
+    return score, outOf
+
+
+def checkMultipleChoice(text: str):
+    text = text.split()
+
+def grade(file: str, answers: str):
+    text = fileOpen(file)
+    score, outOf = checkMultipleChoice(text)
+    grade = (score/outOf) * 100
+    grade = ("{0:.2f}".format(round(grade,2)))
+    return grade
