@@ -37,17 +37,17 @@ class ActionChains(object):
 
     ActionChains can be used in a chain pattern::
 
-        menu = checkPlagiarism.find_element_by_css_selector(".nav")
-        hidden_submenu = checkPlagiarism.find_element_by_css_selector(".nav #submenu1")
+        menu = driver.find_element_by_css_selector(".nav")
+        hidden_submenu = driver.find_element_by_css_selector(".nav #submenu1")
 
-        ActionChains(checkPlagiarism).move_to_element(menu).click(hidden_submenu).perform()
+        ActionChains(driver).move_to_element(menu).click(hidden_submenu).perform()
 
     Or actions can be queued up one by one, then performed.::
 
-        menu = checkPlagiarism.find_element_by_css_selector(".nav")
-        hidden_submenu = checkPlagiarism.find_element_by_css_selector(".nav #submenu1")
+        menu = driver.find_element_by_css_selector(".nav")
+        hidden_submenu = driver.find_element_by_css_selector(".nav #submenu1")
 
-        actions = ActionChains(checkPlagiarism)
+        actions = ActionChains(driver)
         actions.move_to_element(menu)
         actions.click(hidden_submenu)
         actions.perform()
@@ -61,7 +61,7 @@ class ActionChains(object):
         Creates a new ActionChains.
 
         :Args:
-         - checkPlagiarism: The WebDriver instance which performs user actions.
+         - driver: The WebDriver instance which performs user actions.
         """
         self._driver = driver
         self._actions = []
@@ -169,7 +169,7 @@ class ActionChains(object):
 
         Example, pressing ctrl+c::
 
-            ActionChains(checkPlagiarism).key_down(Keys.CONTROL).send_keys('c').key_up(Keys.CONTROL).perform()
+            ActionChains(driver).key_down(Keys.CONTROL).send_keys('c').key_up(Keys.CONTROL).perform()
 
         """
         if element:
@@ -190,7 +190,7 @@ class ActionChains(object):
 
         Example, pressing ctrl+c::
 
-            ActionChains(checkPlagiarism).key_down(Keys.CONTROL).send_keys('c').key_up(Keys.CONTROL).perform()
+            ActionChains(driver).key_down(Keys.CONTROL).send_keys('c').key_up(Keys.CONTROL).perform()
 
         """
         if element:
@@ -261,7 +261,7 @@ class ActionChains(object):
 
         :Args:
          - keys_to_send: The keys to send.  Modifier keys constants can be found in the
-         'Keys' class.
+           'Keys' class.
         """
         self._actions.append(lambda: self._driver.execute(
             Command.SEND_KEYS_TO_ACTIVE_ELEMENT, {'value': keys_to_typing(keys_to_send)}))
@@ -274,7 +274,7 @@ class ActionChains(object):
         :Args:
          - element: The element to send keys.
          - keys_to_send: The keys to send.  Modifier keys constants can be found in the
-         'Keys' class.
+           'Keys' class.
         """
         self._actions.append(lambda: element.send_keys(*keys_to_send))
         return self

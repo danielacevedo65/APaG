@@ -13,5 +13,5 @@ def grade(file: str, answers: str):
     answers = txtOpen(answers)
     score, outOf = checkMath(responses, answers)
     grade = (score/outOf) * 100
-    grade = ("{0:.2f}".format(round(grade,2)))
+    grade = ("The math grade for this file is: {0:.2f}".format(round(grade,2)))
     return grade

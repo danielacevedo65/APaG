@@ -3,8 +3,10 @@ from collections import Counter
 
 def cosine(A, B):
     intersection = set(A.keys()) & set(B.keys())
+    print(intersection)
     numerator = getNumerator(A, B, intersection)
-    denominator = getDenominator(A, B, intersection)
+    denominator = getDenominator(A, B)
+    print(numerator, denominator)
     return calculate(numerator, denominator)
     
 def getNumerator(A, B, inter):
@@ -13,7 +15,7 @@ def getNumerator(A, B, inter):
         num += (A[i] * B[i])
     return num
 
-def getDenominator(A, B, inter):
+def getDenominator(A, B):
     Asum = 0
     for i in A.keys():
         Asum += A[i]**2

@@ -28,7 +28,7 @@ class WebDriverWait(object):
         """Constructor, takes a WebDriver instance and timeout in seconds.
 
            :Args:
-            - checkPlagiarism - Instance of WebDriver (Ie, Firefox, Chrome or Remote)
+            - driver - Instance of WebDriver (Ie, Firefox, Chrome or Remote)
             - timeout - Number of seconds before timing out
             - poll_frequency - sleep interval between calls
               By default, it is 0.5 second.
@@ -37,8 +37,8 @@ class WebDriverWait(object):
 
            Example:
             from selenium.webdriver.support.ui import WebDriverWait \n
-            element = WebDriverWait(checkPlagiarism, 10).until(lambda x: x.find_element_by_id("someId")) \n
-            is_disappeared = WebDriverWait(checkPlagiarism, 30, 1, (ElementNotVisibleException)).\ \n
+            element = WebDriverWait(driver, 10).until(lambda x: x.find_element_by_id("someId")) \n
+            is_disappeared = WebDriverWait(driver, 30, 1, (ElementNotVisibleException)).\ \n
                         until_not(lambda x: x.find_element_by_id("someId").is_displayed())
         """
         self._driver = driver
@@ -60,7 +60,7 @@ class WebDriverWait(object):
             type(self), self._driver.session_id)
 
     def until(self, method, message=''):
-        """Calls the method provided with the checkPlagiarism as an argument until the \
+        """Calls the method provided with the driver as an argument until the \
         return value is not False."""
         screen = None
         stacktrace = None
@@ -80,7 +80,7 @@ class WebDriverWait(object):
         raise TimeoutException(message, screen, stacktrace)
 
     def until_not(self, method, message=''):
-        """Calls the method provided with the checkPlagiarism as an argument until the \
+        """Calls the method provided with the driver as an argument until the \
         return value is False."""
         end_time = time.time() + self._timeout
         while True:

@@ -33,7 +33,7 @@ class TouchActions(object):
         Creates a new TouchActions object.
 
         :Args:
-         - checkPlagiarism: The WebDriver instance which performs user actions.
+         - driver: The WebDriver instance which performs user actions.
            It should be with touchscreen enabled.
         """
         self._driver = driver

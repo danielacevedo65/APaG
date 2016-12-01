@@ -52,8 +52,10 @@ class Mobile(object):
     def set_network_connection(self, network):
         """
         Set the network connection for the remote device.
-        Example of setting airplane mode:
-            checkPlagiarism.mobile.set_network_connection(checkPlagiarism.mobile.AIRPLANE_MODE)
+
+        Example of setting airplane mode::
+
+            driver.mobile.set_network_connection(driver.mobile.AIRPLANE_MODE)
         """
         mode = network.mask if isinstance(network, self.ConnectionType) else network
         return self.ConnectionType(self._driver.execute(

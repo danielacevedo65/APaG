@@ -164,7 +164,7 @@ class text_to_be_present_in_element_value(object):
 
 class frame_to_be_available_and_switch_to_it(object):
     """ An expectation for checking whether the given frame is available to
-    switch to.  If the frame is available it switches the given checkPlagiarism to the
+    switch to.  If the frame is available it switches the given driver to the
     specified frame.
     """
     def __init__(self, locator):
@@ -293,7 +293,7 @@ class number_of_windows_to_be(object):
         self.num_windows = num_windows
 
     def __call__(self, driver):
-        return driver.window_handles == self.num_windows
+        return len(driver.window_handles) == self.num_windows
 
 
 class new_window_is_opened(object):

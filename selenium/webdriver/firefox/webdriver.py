@@ -28,9 +28,10 @@ except NameError:  # Python 3.x
 import shutil
 import socket
 import sys
-import types
 
 from .extension_connection import ExtensionConnection
+from contextlib import contextmanager
+
 from .firefox_binary import FirefoxBinary
 from .firefox_profile import FirefoxProfile
 from .options import Options
@@ -94,7 +95,7 @@ class WebDriver(RemoteWebDriver):
             binary to use for Firefox 47.0.1 and greater, which
             defaults to picking up the binary from the system path.
         :param firefox_options: Instance of ``options.Options``.
-        :param log_path: Where to log information from the checkPlagiarism.
+        :param log_path: Where to log information from the driver.
 
         """
         self.binary = None
@@ -130,6 +131,10 @@ class WebDriver(RemoteWebDriver):
 
         # W3C remote
         # TODO(ato): Perform conformance negotiation
+
+        self.CONTEXT_CHROME = 'chrome'
+        self.CONTEXT_CONTENT = 'content'
+
         if capabilities.get("marionette"):
             self.service = Service(executable_path, log_path=log_path)
             self.service.start()
@@ -169,7 +174,7 @@ class WebDriver(RemoteWebDriver):
         self._is_remote = False
 
     def quit(self):
-        """Quits the checkPlagiarism and close every associated window."""
+        """Quits the driver and close every associated window."""
         try:
             RemoteWebDriver.quit(self)
         except (http_client.BadStatusLine, socket.error):
@@ -180,12 +185,13 @@ class WebDriver(RemoteWebDriver):
             self.service.stop()
         else:
             self.binary.kill()
-        try:
-            shutil.rmtree(self.profile.path)
-            if self.profile.tempfolder is not None:
-                shutil.rmtree(self.profile.tempfolder)
-        except Exception as e:
-            print(str(e))
+        if self.profile is not None:
+            try:
+                shutil.rmtree(self.profile.path)
+                if self.profile.tempfolder is not None:
+                    shutil.rmtree(self.profile.tempfolder)
+            except Exception as e:
+                print(str(e))
 
     @property
     def firefox_profile(self):
@@ -195,3 +201,25 @@ class WebDriver(RemoteWebDriver):
 
     def set_context(self, context):
         self.execute("SET_CONTEXT", {"context": context})
+
+    @contextmanager
+    def context(self, context):
+        """Sets the context that Selenium commands are running in using
+        a `with` statement. The state of the context on the server is
+        saved before entering the block, and restored upon exiting it.
+
+        :param context: Context, may be one of the class properties
+            `CONTEXT_CHROME` or `CONTEXT_CONTENT`.
+
+        Usage example::
+
+            with selenium.context(selenium.CONTEXT_CHROME):
+                # chrome scope
+                ... do stuff ...
+        """
+        initial_context = self.execute('GET_CONTEXT').pop('value')
+        self.set_context(context)
+        try:
+            yield
+        finally:
+            self.set_context(initial_context)

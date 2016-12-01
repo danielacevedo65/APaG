@@ -36,9 +36,12 @@ class SwitchTo:
         Returns the element with focus, or BODY if nothing has focus.
 
         :Usage:
-            element = checkPlagiarism.switch_to.active_element
+            element = driver.switch_to.active_element
         """
-        return self._driver.execute(Command.GET_ACTIVE_ELEMENT)['value']
+        if self._driver.w3c:
+            return self._driver.execute(Command.W3C_GET_ACTIVE_ELEMENT)
+        else:
+            return self._driver.execute(Command.GET_ACTIVE_ELEMENT)['value']
 
     @property
     def alert(self):
@@ -46,7 +49,7 @@ class SwitchTo:
         Switches focus to an alert on the page.
 
         :Usage:
-            alert = checkPlagiarism.switch_to.alert
+            alert = driver.switch_to.alert
         """
         return Alert(self._driver)
 
@@ -55,7 +58,7 @@ class SwitchTo:
         Switch focus to the default frame.
 
         :Usage:
-            checkPlagiarism.switch_to.default_content()
+            driver.switch_to.default_content()
         """
         self._driver.execute(Command.SWITCH_TO_FRAME, {'id': None})
 
@@ -68,9 +71,9 @@ class SwitchTo:
                             or a webelement that is an (i)frame to switch to.
 
         :Usage:
-            checkPlagiarism.switch_to.frame('frame_name')
-            checkPlagiarism.switch_to.frame(1)
-            checkPlagiarism.switch_to.frame(checkPlagiarism.find_elements_by_tag_name("iframe")[0])
+            driver.switch_to.frame('frame_name')
+            driver.switch_to.frame(1)
+            driver.switch_to.frame(driver.find_elements_by_tag_name("iframe")[0])
         """
         if isinstance(frame_reference, basestring) and self._driver.w3c:
             try:
@@ -89,7 +92,7 @@ class SwitchTo:
         level browsing context, the context remains unchanged.
 
         :Usage:
-            checkPlagiarism.switch_to.parent_frame()
+            driver.switch_to.parent_frame()
         """
         self._driver.execute(Command.SWITCH_TO_PARENT_FRAME)
 
@@ -101,7 +104,7 @@ class SwitchTo:
          - window_name: The name or window handle of the window to switch to.
 
         :Usage:
-            checkPlagiarism.switch_to.window('main')
+            driver.switch_to.window('main')
         """
         data = {'name': window_name}
         if self._driver.w3c:

@@ -20,7 +20,6 @@ try:
 except ImportError:
     import httplib as http_client
 
-import os
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 from .service import Service
@@ -35,14 +34,14 @@ class WebDriver(RemoteWebDriver):
     def __init__(self, port=0, executable_path="/usr/bin/safaridriver",
                  desired_capabilities=DesiredCapabilities.SAFARI, quiet=False):
         """
-        Creates a new instance of the Safari checkPlagiarism.
+        Creates a new instance of the Safari driver.
 
         Starts the service and then creates new instance of Safari Driver.
 
         :Args:
          - port - port you would like the service to run, if left as 0, a free port will be found.
          - desired_capabilities: Dictionary object with desired capabilities (Can be used to provide various Safari switches).
-         - quiet - set to True to suppress stdout and stderr of the checkPlagiarism
+         - quiet - set to True to suppress stdout and stderr of the driver
         """
         self.service = Service(executable_path, port=port, quiet=quiet)
         self.service.start()

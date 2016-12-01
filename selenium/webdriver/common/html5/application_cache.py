@@ -36,7 +36,7 @@ class ApplicationCache(object):
         Creates a new Aplication Cache.
 
         :Args:
-         - checkPlagiarism: The WebDriver instance which performs user actions.
+         - driver: The WebDriver instance which performs user actions.
         """
         self.driver = driver
 

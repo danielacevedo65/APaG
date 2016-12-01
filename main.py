@@ -7,7 +7,7 @@ import checkSpelling, checkMath, checkPython, checkMultipleChoice
 def main():
     parser = argparse.ArgumentParser(description="CS 585 Project")
     parser.add_argument('-f', action = "store", dest="file", type=str, help="File to be used")
-    parser.add_argument('-p', action = "store", dest="checkPlagiarism", type=str, help="'yes' to check for plagirism, 'no' otherwise")
+    parser.add_argument('-p', action = "store", dest="plagiarism", type=str, help="'yes' to check for plagirism, 'no' otherwise")
     parser.add_argument('-g', action = "store", dest="grade_style", type=str, help="What type of grading - spelling, math, python, mc")
     parser.add_argument('-as', action = "store", dest="answer_sheet", type=str, help="Answers to compare file to")
     parser = parser.parse_args()
@@ -41,9 +41,14 @@ def main():
     if parser.plagiarism == "yes":
         isPlagiarized = checkPlagiarism(parser.file)  
         if isPlagiarized:
+            print()
             print("No grading will be done to this file. The grade received is automatically assigned an F.")
+            print()
             sys.exit(1)  
     
+    if parser.grade_style != None:
+        print()
+        
     if parser.grade_style == "spelling":
         print(checkSpelling.grade(parser.file))
     

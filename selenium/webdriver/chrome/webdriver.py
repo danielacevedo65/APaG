@@ -33,9 +33,9 @@ class WebDriver(RemoteWebDriver):
                  chrome_options=None, service_args=None,
                  desired_capabilities=None, service_log_path=None):
         """
-        Creates a new instance of the chrome checkPlagiarism.
+        Creates a new instance of the chrome driver.
 
-        Starts the service and then creates new instance of chrome checkPlagiarism.
+        Starts the service and then creates new instance of chrome driver.
 
         :Args:
          - executable_path - path to the executable. If the default is used it assumes the executable is in the $PATH

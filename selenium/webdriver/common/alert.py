@@ -32,19 +32,19 @@ class Alert(object):
 
     Accepting / Dismissing alert prompts::
 
-        Alert(checkPlagiarism).accept()
-        Alert(checkPlagiarism).dismiss()
+        Alert(driver).accept()
+        Alert(driver).dismiss()
 
     Inputting a value into an alert prompt:
 
-        name_prompt = Alert(checkPlagiarism)
+        name_prompt = Alert(driver)
         name_prompt.send_keys("Willian Shakesphere")
         name_prompt.accept()
 
 
     Reading a the text of a prompt for verification:
 
-        alert_text = Alert(checkPlagiarism).text
+        alert_text = Alert(driver).text
         self.assertEqual("Do you wish to quit?", alert_text)
 
     """
@@ -54,7 +54,7 @@ class Alert(object):
         Creates a new Alert.
 
         :Args:
-         - checkPlagiarism: The WebDriver instance which performs user actions.
+         - driver: The WebDriver instance which performs user actions.
         """
         self.driver = driver
 
@@ -76,7 +76,7 @@ class Alert(object):
         Accepts the alert available.
 
         Usage::
-        Alert(checkPlagiarism).accept() # Confirm a alert dialog.
+        Alert(driver).accept() # Confirm a alert dialog.
         """
         self.driver.execute(Command.ACCEPT_ALERT)
 
@@ -100,7 +100,7 @@ class Alert(object):
         Implicitly 'clicks ok'
 
         Usage::
-        checkPlagiarism.switch_to.alert.authenticate('cheese', 'secretGouda')
+        driver.switch_to.alert.authenticate('cheese', 'secretGouda')
 
         :Args:
          -username: string to be set in the username section of the dialog

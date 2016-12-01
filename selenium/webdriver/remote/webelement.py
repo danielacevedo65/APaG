@@ -107,7 +107,7 @@ class WebElement(object):
             return self._execute(Command.GET_ELEMENT_PROPERTY, {"name": name})["value"]
         except WebDriverException:
             # if we hit an end point that doesnt understand getElementProperty lets fake it
-            self.parent.execute_script('return arguments[0][arguments[1]]', self, name)
+            return self.parent.execute_script('return arguments[0][arguments[1]]', self, name)
 
     def get_attribute(self, name):
         """Gets the given attribute or property of the element.
@@ -160,7 +160,7 @@ class WebElement(object):
         """Finds element within this element's children by ID.
 
         :Args:
-            - id_ - ID of child element to locate.
+            - id\_ - ID of child element to locate.
         """
         return self.find_element(by=By.ID, value=id_)
 
@@ -168,7 +168,7 @@ class WebElement(object):
         """Finds a list of elements within this element's children by ID.
 
         :Args:
-            - id_ - Id of child element to find.
+            - id\_ - Id of child element to find.
         """
         return self.find_elements(by=By.ID, value=id_)
 
@@ -319,25 +319,25 @@ class WebElement(object):
 
         :Args:
             - value - A string for typing, or setting form fields.  For setting
-            file inputs, this could be a local file path.
+              file inputs, this could be a local file path.
 
         Use this to send simple key events or to fill out form fields::
 
-            form_textfield = checkPlagiarism.find_element_by_name('username')
+            form_textfield = driver.find_element_by_name('username')
             form_textfield.send_keys("admin")
 
         This can also be used to set file inputs.
 
         ::
 
-            file_input = checkPlagiarism.find_element_by_name('profilePic')
+            file_input = driver.find_element_by_name('profilePic')
             file_input.send_keys("path/to/profilepic.gif")
             # Generally it's better to wrap the file path in one of the methods
             # in os.path to return the actual path to support cross OS testing.
             # file_input.send_keys(os.path.abspath("path/to/profilepic.gif"))
 
         """
-        # transfer file to another machine only if remote checkPlagiarism is used
+        # transfer file to another machine only if remote driver is used
         # the same behaviour as for java binding
         if self.parent._is_remote:
             local_file = self.parent.file_detector.is_local_file(*value)

@@ -41,7 +41,7 @@ class EventFiringWebDriver(object):
         Creates a new instance of the EventFiringWebDriver
 
         :Args:
-         - checkPlagiarism : A WebDriver instance
+         - driver : A WebDriver instance
          - event_listener : Instance of a class that subclasses AbstractEventListener and implements it fully or partially
 
         Example:
@@ -52,13 +52,13 @@ class EventFiringWebDriver(object):
             from selenium.webdriver.support.events import EventFiringWebDriver, AbstractEventListener
 
             class MyListener(AbstractEventListener):
-                def before_navigate_to(self, url, checkPlagiarism):
+                def before_navigate_to(self, url, driver):
                     print("Before navigate to %s" % url)
-                def after_navigate_to(self, url, checkPlagiarism):
+                def after_navigate_to(self, url, driver):
                     print("After navigate to %s" % url)
 
-            checkPlagiarism = Firefox()
-            ef_driver = EventFiringWebDriver(checkPlagiarism, MyListener())
+            driver = Firefox()
+            ef_driver = EventFiringWebDriver(driver, MyListener())
             ef_driver.get("http://www.google.co.in/")
         """
         if not isinstance(driver, WebDriver):

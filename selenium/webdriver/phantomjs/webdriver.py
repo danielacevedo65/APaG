@@ -34,7 +34,7 @@ class WebDriver(RemoteWebDriver):
         """
         Creates a new instance of the PhantomJS / Ghostdriver.
 
-        Starts the service and then creates new instance of the checkPlagiarism.
+        Starts the service and then creates new instance of the driver.
 
         :Args:
          - executable_path - path to the executable. If the default is used it assumes the executable is in the $PATH

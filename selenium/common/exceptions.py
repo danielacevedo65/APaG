@@ -45,7 +45,7 @@ class ErrorInResponseException(WebDriverException):
     Thrown when an error has occurred on the server side.
 
     This may happen when communicating with the firefox extension
-    or the remote checkPlagiarism server.
+    or the remote driver server.
     """
     def __init__(self, response, msg):
         WebDriverException.__init__(self, msg)
@@ -73,7 +73,7 @@ class NoSuchWindowException(InvalidSwitchToTargetException):
     To find the current set of active window handles, you can get a list
     of the active window handles in the following way::
 
-        print checkPlagiarism.window_handles
+        print driver.window_handles
 
     """
     pass
@@ -86,8 +86,8 @@ class NoSuchElementException(WebDriverException):
     If you encounter this exception, you may want to check the following:
         * Check your selector used in your find_by...
         * Element may not yet be on the screen at the time of the find operation,
-        (webpage is still loading) see selenium.webdriver.support.wait.WebDriverWait()
-        for how to write a wait wrapper to wait for an element to appear.
+          (webpage is still loading) see selenium.webdriver.support.wait.WebDriverWait()
+          for how to write a wait wrapper to wait for an element to appear.
     """
     pass
 
@@ -112,11 +112,11 @@ class StaleElementReferenceException(WebDriverException):
 
     Possible causes of StaleElementReferenceException include, but not limited to:
         * You are no longer on the same page, or the page may have refreshed since the element
-        was located.
+          was located.
         * The element may have been removed and re-added to the screen, since it was located.
-        Such as an element being relocated.
-        This can happen typically with a javascript framework when values are updated and the
-        node is rebuilt.
+          Such as an element being relocated.
+          This can happen typically with a javascript framework when values are updated and the
+          node is rebuilt.
         * Element may have been inside an iframe or another context which was refreshed.
     """
     pass
@@ -183,7 +183,7 @@ class InvalidCookieDomainException(WebDriverException):
 
 class UnableToSetCookieException(WebDriverException):
     """
-    Thrown when a checkPlagiarism fails to set a cookie.
+    Thrown when a driver fails to set a cookie.
     """
     pass
 
